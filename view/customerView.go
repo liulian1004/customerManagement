@@ -1,10 +1,32 @@
 package main
 
 import (
+	"customerManagement/model"
 	"customerManagement/service"
 	"fmt"
 )
 
+func (this *customerView) add() {
+	fmt.Println("------------ Add Customer -----------")
+	fmt.Println("name: ")
+	name := ""
+	fmt.Scanln(&name)
+	fmt.Println("gender: ")
+	gender := ""
+	fmt.Scanln(&gender)
+	fmt.Println("age: ")
+	age := 0
+	fmt.Scanln(&age)
+	fmt.Println("phone: ")
+	phone := ""
+	fmt.Scanln(&phone)
+	fmt.Println("email: ")
+	email := ""
+	fmt.Scanln(&email)
+	customer := model.NewCustomerWithoutId(name, gender, age, phone, email)
+	this.customerService.AddCustomer(customer)
+
+}
 type customerView struct{
 	// the user input
 		key string
@@ -15,7 +37,7 @@ type customerView struct{
 
 //show customer list
 func (this *customerView) showList() {
-	customers := this.customerService.List()
+	customers := this.customerService.GetCustomerList()
 	fmt.Println("------------ Customer List -----------")
 	fmt.Println("ID\tname\tgender\tage\tphone\temail")
 	for i := 0; i < len(customers); i++ {
